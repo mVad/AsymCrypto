@@ -14,10 +14,6 @@ class Generators {
         return (int)(((Math.pow(2,16)+1)*x+119) % Math.pow(2,32));
     }
 
-    static int l20(int x){
-        return (x>>17)^(x>>15)^(x>>11)^(x) & 1;
-    }
-
     protected static BigInteger l89(BigInteger x) {
     return x.shiftRight(51).xor(x.shiftRight(89)).and(BigInteger.ONE);
 }
