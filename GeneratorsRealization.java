@@ -90,6 +90,26 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
+    private static int L20Generator(int s){
+        return  ((((s ^ (s>>17) ^(s>>15) ^ (s>>11)) & 1) << 19)  | (s >>1));
+    }
+    private static int L20GetBit(int s){
+        return ((s ^ (s>>17) ^(s>>15) ^ (s>>11)) & 1);
+    }
+    static List<Integer> L20Realization(int start, int length){
+        List <Integer> list = new ArrayList<>();
+        String s= "";
+        for (int i=0;i<length;i++){
+            if (i%8==0 & i>0)  {
+                list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
+                s = "";
+            }
+            s += L20GetBit(start);
+            start = L20Generator(start);
+        }
+        return list;
+    }
+
     static List<Integer> bibliotekarRealization(String text, int length){
         text = text.substring(0,length);
         return bibliotekar(text);
@@ -190,6 +210,5 @@ public class GeneratorsRealization extends Generators{
     }
 
     public static void main(String[] args) {
-        giffeRealization(10,20,30,100);
     }
 }
