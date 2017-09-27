@@ -31,7 +31,7 @@ public class GeneratorsRealization extends Generators{
         BigInteger a = BigInteger.valueOf(2).pow(16).add(BigInteger.ONE);
         BigInteger m = BigInteger.valueOf(2).pow(32);
         for (long i=0;i<length;i++){
-            list.add(unsignedToBytes((byte)(start & 0xff)));
+            list.add(unsignedToBytes((byte)((start << 24) >>> 24)));
             start = lehmer(BigInteger.valueOf(start),a,m);
         }
         return list;
