@@ -79,6 +79,22 @@ public class GeneratorsRealization extends Generators{
         return bibliotekar(text);
     }
 
+    static List<Integer> volframRealization(int r0, int length){
+        int r = volfram(r0);
+        List<Integer> list = new ArrayList<>();
+        String s = "";
+        for (int i=0;i<length;i++){
+            if (i%8==0 & i>0)  {
+                list.add(Integer.parseInt(s,2));
+                s = "";
+            }
+            s+= r%2;
+            r = volfram(r);
+
+        }
+        return list;
+    }
+
     static List<Integer> BMRealization(int T0, int length){
         BigInteger Tstart = BigInteger.valueOf(T0);
         BigInteger p = new BigInteger("0CEA42B987C44FA642D80AD9F51F10457690DEF10C83D0BC1BCEE12FC3B6093E3", 16);

@@ -32,14 +32,8 @@ class Generators {
         return array;
     }
 
-    protected static List<Integer> volfram(int r0, int n){
-        int r = r0;
-        List<Integer> mass = new ArrayList<>();
-        for (int i=0;i<n;i++){
-            mass.add(r %2);
-            r = (r << 1) ^ (r | (r >> 1));
-        }
-        return mass;
+    static int volfram(int r0){
+        return ((r0 << 1) ^ (r0 | (r0 >>> 1)));
     }
 
 
