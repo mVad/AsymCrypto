@@ -31,12 +31,11 @@ public class GeneratorsRealization extends Generators{
         BigInteger a = BigInteger.valueOf(2).pow(16).add(BigInteger.ONE);
         BigInteger m = BigInteger.valueOf(2).pow(32);
         for (long i=0;i<length;i++){
-            list.add(unsignedToBytes((byte)((start << 24) >>> 24)));
+            list.add((start & (0xff)));
             start = lehmer(BigInteger.valueOf(start),a,m);
         }
-       /* for (Integer xe:list)
-            System.out.println(list);*/
         return list;
+
     }
 
     private static int giffeL11(int x){
@@ -127,6 +126,8 @@ public class GeneratorsRealization extends Generators{
             s += L89GetBit(start).intValue();
             start = L89Generator(start);
         }
+        for (Integer xe: list)
+            System.out.println(xe);
         return list;
     }
 
@@ -233,6 +234,6 @@ public class GeneratorsRealization extends Generators{
     }
 
     public static void main(String[] args) {
-        L89Realization(200,20000);
+      lehmerLow(20,20000);
     }
 }
