@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -86,7 +85,7 @@ public class GeneratorsRealization extends Generators{
         BigInteger a = new BigInteger("5B88C41246790891C095E2878880342E88C79974303BD0400B090FE38A688356", 16);
         BigInteger q = new BigInteger("675215CC3E227D3216C056CFA8F8822BB486F788641E85E0DE77097E1DB049F1", 16);
         BigInteger res = (p.subtract(BigInteger.ONE).divide(BigInteger.valueOf(2)));
-        BigInteger T1 = BM(BigInteger.valueOf(T0),a,p);
+        BigInteger T1 = BM(Tstart,a,p);
         String s = "";
         List<Integer> list = new ArrayList<>();
         for (int i=0;i<length;i++){
@@ -106,7 +105,7 @@ public class GeneratorsRealization extends Generators{
         BigInteger p = new BigInteger("0CEA42B987C44FA642D80AD9F51F10457690DEF10C83D0BC1BCEE12FC3B6093E3", 16);
         BigInteger a = new BigInteger("5B88C41246790891C095E2878880342E88C79974303BD0400B090FE38A688356", 16);
         BigInteger q = new BigInteger("675215CC3E227D3216C056CFA8F8822BB486F788641E85E0DE77097E1DB049F1", 16);
-        BigInteger T1 = BM(BigInteger.valueOf(T0), a, p);
+        BigInteger T1 = BM(Tstart, a, p);
         BigInteger pMinus1 = p.subtract(BigInteger.ONE);
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < length; i++) {
