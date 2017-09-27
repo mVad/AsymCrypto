@@ -2,8 +2,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
-
 
 class Generators {
     static byte[] buildedGen(int length){
@@ -54,13 +52,5 @@ class Generators {
         return r.mod(BigInteger.valueOf(2));
     }
 
-    protected static BigInteger BBSbytes(int r0) {
-        if (r0<2) return BigInteger.ZERO;
-        BigInteger rStart = BigInteger.valueOf(r0);
-        BigInteger p = new BigInteger("0D5BBB96D30086EC484EBA3D7F9CAEB07", 16);
-        BigInteger q = new BigInteger("425D2B9BFDB25B9CF6C416CC6E37B59C1F", 16);
-        BigInteger r = rStart.modPow(BigInteger.valueOf(2),p.multiply(q));
-        return r.mod(BigInteger.valueOf(256));
-    }
 
 }
