@@ -34,6 +34,8 @@ public class GeneratorsRealization extends Generators{
             list.add(unsignedToBytes((byte)((start << 24) >>> 24)));
             start = lehmer(BigInteger.valueOf(start),a,m);
         }
+       /* for (Integer xe:list)
+            System.out.println(list);*/
         return list;
     }
 
@@ -106,16 +108,17 @@ public class GeneratorsRealization extends Generators{
     }
 
     private static BigInteger L89Generator(BigInteger x){
-        return ((((x.or(x.shiftRight(51))).and(BigInteger.ONE)).shiftLeft(88)).or(x.shiftRight(1)));
+        return (((x.xor(x.shiftRight(51))).and(BigInteger.ONE)).shiftLeft(88)).or(x.shiftRight(1));
     }
     private static BigInteger L89GetBit(BigInteger x){
-        return ((((x.or(x.shiftRight(51))).and(BigInteger.ONE))));
+        return (((x.xor(x.shiftRight(51))).and(BigInteger.ONE)));
     }
 
     static List<Integer> L89Realization(int x, int length){
         BigInteger start = BigInteger.valueOf(x);
         List <Integer> list = new ArrayList<>();
         String s= "";
+        start = L89Generator(start);
         for (int i=0;i<length;i++){
             if (i%8==0 & i>0)  {
                 list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
@@ -124,8 +127,6 @@ public class GeneratorsRealization extends Generators{
             s += L89GetBit(start).intValue();
             start = L89Generator(start);
         }
-        for (Integer xe: list)
-            System.out.println(xe);
         return list;
     }
 
@@ -232,6 +233,6 @@ public class GeneratorsRealization extends Generators{
     }
 
     public static void main(String[] args) {
-        lehmerHigh(20,20000);
+        L89Realization(200,20000);
     }
 }
