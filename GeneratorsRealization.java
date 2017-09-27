@@ -33,15 +33,6 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
-    static List<Integer> l20Realization(int start, long length){
-        List<Integer> list = new ArrayList<>();
-        int x = l20(start);
-        for (long i=0;i<length;i++){
-            list.add(unsignedToBytes((byte)(x & 0xff)));
-            x = l20(x);
-        }
-        return list;
-    }
     private static int giffeL11(int x){
         return ((((x ^ (x>>2)) & 1) << 10)  | (x >>1));
     }
@@ -106,6 +97,28 @@ public class GeneratorsRealization extends Generators{
             }
             s += L20GetBit(start);
             start = L20Generator(start);
+        }
+        return list;
+    }
+
+    private static BigInteger L89Generator(BigInteger x){
+        return ((((x.or(x.shiftRight(51))).and(BigInteger.ONE)).shiftLeft(88)).or(x.shiftRight(1)));
+    }
+    private static BigInteger L89GetBit(BigInteger x){
+        return ((((x.or(x.shiftRight(51))).and(BigInteger.ONE))));
+    }
+
+    static List<Integer> L89Realization(int x, int length){
+        BigInteger start = BigInteger.valueOf(x);
+        List <Integer> list = new ArrayList<>();
+        String s= "";
+        for (int i=0;i<length;i++){
+            if (i%8==0 & i>0)  {
+                list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
+                s = "";
+            }
+            s += L89GetBit(start).intValue();
+            start = L89Generator(start);
         }
         return list;
     }
@@ -209,6 +222,4 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
-    public static void main(String[] args) {
-    }
 }
