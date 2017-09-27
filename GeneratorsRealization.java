@@ -85,7 +85,7 @@ public class GeneratorsRealization extends Generators{
         String s = "";
         for (int i=0;i<length;i++){
             if (i%8==0 & i>0)  {
-                list.add(Integer.parseInt(s,2));
+                list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
                 s = "";
             }
             s+= r%2;
@@ -106,7 +106,7 @@ public class GeneratorsRealization extends Generators{
         List<Integer> list = new ArrayList<>();
         for (int i=0;i<length;i++){
             if (i%8==0 & i>0)  {
-                list.add(Integer.parseInt(s,2));
+                list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
                 s="";
             }
         if (T1.compareTo(res) == -1) s+="1";
@@ -149,7 +149,7 @@ public class GeneratorsRealization extends Generators{
         List<Integer> list = new ArrayList<>();
         for (int i=0;i<length;i++){
             if (i%8==0 & i>0)  {
-                list.add(Integer.parseInt(s,2));
+                list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
                 s = "";
             }
             s += r1.mod(BigInteger.valueOf(2));
@@ -167,7 +167,7 @@ public class GeneratorsRealization extends Generators{
         BigInteger r1 = BBS(rStart,pq);
         List<Integer> list = new ArrayList<>();
         for (int i=0;i<length;i++){
-            list.add(r1.mod(BigInteger.valueOf(256)).intValue());
+            list.add(unsignedToBytes((byte)r1.mod(BigInteger.valueOf(256)).intValue()));
             r1 = BBS(r1,pq);
         }
         return list;
