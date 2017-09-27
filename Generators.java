@@ -37,8 +37,8 @@ class Generators {
     }
 
   static BigInteger BBS(BigInteger rStart, BigInteger pq) {
-        BigInteger r = rStart.modPow(BigInteger.valueOf(2), pq);
-        return r.mod(BigInteger.valueOf(2));
+        return rStart.modPow(BigInteger.valueOf(2), pq);
+
     }
 
 
