@@ -16,19 +16,23 @@ public class GeneratorsRealization extends Generators{
     }
     static List<Integer> lehmerHigh(int start,long length){
         List<Integer> list = new ArrayList<>();
-        int x = lehmer(start);
+        BigInteger a = BigInteger.valueOf(2).pow(16).add(BigInteger.ONE);
+        BigInteger m = BigInteger.valueOf(2).pow(32);
+
         for (long i=0;i<length;i++){
-            list.add(unsignedToBytes((byte)(x >>> 24)));
-            x = lehmer(x);
+            list.add(unsignedToBytes((byte)(start >>> 24)));
+            start = lehmer(BigInteger.valueOf(start),a,m);
         }
+
         return list;
     }
     static List<Integer> lehmerLow(int start, long length){
         List<Integer> list = new ArrayList<>();
-        int x = lehmer(start);
+        BigInteger a = BigInteger.valueOf(2).pow(16).add(BigInteger.ONE);
+        BigInteger m = BigInteger.valueOf(2).pow(32);
         for (long i=0;i<length;i++){
-            list.add(unsignedToBytes((byte)(x & 0xff)));
-            x = lehmer(x);
+            list.add(unsignedToBytes((byte)(start & 0xff)));
+            start = lehmer(BigInteger.valueOf(start),a,m);
         }
         return list;
     }
@@ -120,6 +124,8 @@ public class GeneratorsRealization extends Generators{
             s += L89GetBit(start).intValue();
             start = L89Generator(start);
         }
+        for (Integer xe: list)
+            System.out.println(xe);
         return list;
     }
 
@@ -134,10 +140,13 @@ public class GeneratorsRealization extends Generators{
         String s = "";
         for (int i=0;i<length;i++){
             if (i%8==0 & i>0)  {
+
                 list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
                 s = "";
             }
+
             s+= r%2;
+            System.out.println(r);
             r = volfram(r);
 
         }
@@ -222,4 +231,7 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
+    public static void main(String[] args) {
+        lehmerHigh(20,20000);
+    }
 }

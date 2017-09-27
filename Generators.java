@@ -10,9 +10,11 @@ class Generators {
         return randomBytes;
     }
 
-    static int lehmer(int x){
-        return (int)(((Math.pow(2,16)+1)*x+119) % Math.pow(2,32));
+    static int lehmer(BigInteger x, BigInteger a, BigInteger m){
+        return (a.multiply(x).add(BigInteger.valueOf(119))).mod(m).intValue();
     }
+
+
 
     static byte giffe(int x, int y, int s){
         return (byte) ((s&x) ^ ((1 ^ s)&y));
