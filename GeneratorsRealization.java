@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -42,36 +43,51 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
     private static int giffeL11(int x){
-        return (((x)^(x>>9)) << 11 | (x >> 1));
+        return ((((x ^ (x>>2)) & 1) << 10)  | (x >>1));
     }
+    private static int giffeGetBitL11(int x){
+        return ((((x ^ (x>>2)) & 1)));
+    }
+
     private static int giffeL9(int y){
-        return (y)^(y>>1)^(y>>3)^(y>>4) | (y >> 1);
+        return ((((y ^ (y>>4) ^ (y>>3) ^ (y>>1)) & 1) << 8)  | (y >>1));
     }
+    private static int giffeGetBitL9(int y){
+        return ((y ^ (y>>4) ^ (y>>3) ^ (y>>1)) & 1);
+    }
+
     private static int giffeL10(int s){
-        return (s)^(s>>3)| (s >> 1);
+        return  ((((s ^ (s>>3)) & 1) << 9)  | (s >>1));
     }
-    static List<Integer> giffeRealization(int x, int y, int s, int length){
+    private static int giffeGetBitL10(int s){
+        return ((((s ^ (s>>3)) & 1)));
+    }
+    private static List<Integer> giffeRealization(int x, int y, int s, int length){
         List <Integer> xbits = new ArrayList<>();
         List <Integer> ybits = new ArrayList<>();
         List <Integer> sbits = new ArrayList<>();
-
+        List<Integer> list = new ArrayList<>();
         for (long i=0;i<length;i++){
+            xbits.add(giffeGetBitL11(x));
             x = giffeL11(x);
-            System.out.println("x="+x);
-            y = giffeL9(y);
-            s = giffeL10(s);
-            xbits.add(x& 0xff);
-            ybits.add(y&1);
-            sbits.add(s&1);
-        }
-        System.out.println(xbits.toString());
-        byte[] bytemass = new byte[8];
-        for (int i=0; i<xbits.size();i++){
-            String line = Byte.toString(giffe(xbits.get(i),ybits.get(i),sbits.get(i)));
 
-            System.out.println(s);
+            ybits.add(giffeGetBitL9(y));
+            y = giffeL9(y);
+
+            sbits.add(giffeGetBitL10(s));
+            s = giffeL10(s);
+
         }
-        return xbits;
+        String bits = "";
+        for (int i=0; i<xbits.size();i++){
+            if (i%8==0 & i>0)  {
+                list.add(unsignedToBytes((byte)Integer.parseInt(bits,2)));
+                bits = "";
+            }
+            bits += Byte.toString(giffe(xbits.get(i),ybits.get(i),sbits.get(i)));
+
+        }
+        return list;
     }
 
     static List<Integer> bibliotekarRealization(String text, int length){
@@ -173,4 +189,7 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
+    public static void main(String[] args) {
+        giffeRealization(10,20,30,100);
+    }
 }
