@@ -158,7 +158,7 @@ public class GeneratorsRealization extends Generators{
         return bibliotekar(text);
     }
 
-    static List<Integer> volframRealization(int r0, int length){
+    static List<Integer> volframRealization(long r0, int length){
         List<Integer> list = new ArrayList<>();
         String s = "";
         for (int i=0;i<length;i++){
@@ -168,11 +168,11 @@ public class GeneratorsRealization extends Generators{
                 s = "";
             }
             s+= r0%2;
+
             r0 = volfram(r0);
 
         }
-        for (Integer xe:list)
-            System.out.println(xe);
+
         return list;
     }
 
@@ -255,6 +255,6 @@ public class GeneratorsRealization extends Generators{
     }
 
     public static void main(String[] args) throws IOException {
-        bibliotekarRealization("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input");
+     //  volframRealization(36,100);
     }
 }

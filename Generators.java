@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 class Generators {
+    private static int unsignedToBytes(byte b) { return b & 0xFF; }
     static byte[] buildedGen(int length){
         byte randomBytes[] = new byte[length];
         new Random().nextBytes(randomBytes);
@@ -30,8 +31,20 @@ class Generators {
         return array;
     }
 
-    static int volfram(int r0){
-        return ((r0 << 1) ^ (r0 | (r0 >>> 1)));
+    static long volfram(long r0){
+
+
+        long r1 = Long.parseUnsignedLong(String.valueOf(r0));
+        long rotatedRight = Integer.toUnsignedLong(Integer.rotateRight((int)r1,1));
+        long rotatedLeft = Integer.toUnsignedLong(Integer.rotateLeft((int)r1,1));
+       // return Long.parseUnsignedLong(String.valueOf((rotatedLeft ^ (r1 | rotatedRight))));
+       // System.out.println("rotatedRight "+rotatedRight
+       // + "\nrotatedLeft"+rotatedLeft);
+      //  System.out.println("without %=" + (rotatedLeft ^ (r1 | rotatedRight)));
+       // System.out.println("with %0=" + (long)((rotatedLeft ^ (r1 | rotatedRight))% Math.pow(2,32)));
+        return (long)((rotatedLeft ^ (r1 | rotatedRight))% Math.pow(2,32));
+
+
     }
 
 
