@@ -143,7 +143,7 @@ public class GeneratorsRealization extends Generators{
 
     static List<Integer> bibliotekarRealization(String FILE_NAME) throws IOException {
         String text = "";
-        try(FileReader reader = new FileReader("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input"))
+        try(FileReader reader = new FileReader(FILE_NAME))
         {
             // читаем посимвольно
             int c;
@@ -155,7 +155,6 @@ public class GeneratorsRealization extends Generators{
 
             System.out.println(ex.getMessage());
         }
-        System.out.println(text);
         return bibliotekar(text);
     }
 
@@ -256,6 +255,6 @@ public class GeneratorsRealization extends Generators{
     }
 
     public static void main(String[] args) throws IOException {
-        bibliotekarRealization("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input.txt");
+        bibliotekarRealization("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input");
     }
 }
