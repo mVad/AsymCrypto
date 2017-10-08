@@ -22,8 +22,11 @@ class Generators {
     static List<Integer> bibliotekar(String text){
         List<Integer> array = new ArrayList<>();
         for (char x: text.toCharArray()){
+            if (x > 'a' && x<'z')
             array.add((int)x);
         }
+        for (Integer xe: array)
+            System.out.println(xe);
         return array;
     }
 

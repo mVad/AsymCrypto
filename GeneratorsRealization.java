@@ -1,6 +1,14 @@
+import java.awt.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 
 public class GeneratorsRealization extends Generators{
@@ -31,9 +39,11 @@ public class GeneratorsRealization extends Generators{
         BigInteger a = BigInteger.valueOf(2).pow(16).add(BigInteger.ONE);
         BigInteger m = BigInteger.valueOf(2).pow(32);
         for (long i=0;i<length;i++){
-            list.add((start & (0xff)));
+            list.add(unsignedToBytes((byte)(start & (0xff))));
             start = lehmer(BigInteger.valueOf(start),a,m);
         }
+        for (Integer xe:list)
+            System.out.println(xe);
         return list;
 
     }
@@ -131,13 +141,25 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
-    static List<Integer> bibliotekarRealization(String text, int length){
-        text = text.substring(0,length);
+    static List<Integer> bibliotekarRealization(String FILE_NAME) throws IOException {
+        String text = "";
+        try(FileReader reader = new FileReader("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input"))
+        {
+            // читаем посимвольно
+            int c;
+            while((c=reader.read())!=-1){
+                text+=(char)c;
+            }
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(text);
         return bibliotekar(text);
     }
 
     static List<Integer> volframRealization(int r0, int length){
-        int r = volfram(r0);
         List<Integer> list = new ArrayList<>();
         String s = "";
         for (int i=0;i<length;i++){
@@ -146,12 +168,12 @@ public class GeneratorsRealization extends Generators{
                 list.add(unsignedToBytes((byte)Integer.parseInt(s,2)));
                 s = "";
             }
-
-            s+= r%2;
-            System.out.println(r);
-            r = volfram(r);
+            s+= r0%2;
+            r0 = volfram(r0);
 
         }
+        for (Integer xe:list)
+            System.out.println(xe);
         return list;
     }
 
@@ -233,7 +255,7 @@ public class GeneratorsRealization extends Generators{
         return list;
     }
 
-    public static void main(String[] args) {
-      lehmerLow(20,20000);
+    public static void main(String[] args) throws IOException {
+        bibliotekarRealization("C:\\Users\\Tempuser\\IdeaProjects\\AsymCrypto\\src\\input.txt");
     }
 }
