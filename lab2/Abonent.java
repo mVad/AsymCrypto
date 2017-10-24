@@ -6,11 +6,13 @@ import java.math.BigInteger;
  * Created by Tempuser on 24.10.2017.
  */
 public class Abonent extends RSA {
-    BigInteger p;
-    BigInteger q;
-    BigInteger d;
-    BigInteger n;
-    BigInteger e;
+    private BigInteger p;
+    private BigInteger q;
+    private BigInteger d;
+    public BigInteger n;
+    public BigInteger e;
+
+    public Abonent(){};
 
     public Abonent(BigInteger p, BigInteger q, BigInteger d, BigInteger n, BigInteger e) {
         this.p = p;
@@ -62,6 +64,10 @@ public class Abonent extends RSA {
 
     public BigInteger encrypt(BigInteger msg, BigInteger openKey){
         return msg;
+    }
+
+    public BigInteger phiN(){
+        return this.getP().subtract(BigInteger.ONE).multiply(this.getQ().subtract(BigInteger.ONE));
     }
 
 }

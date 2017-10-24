@@ -38,7 +38,7 @@ abstract class RSA {
 
     public static void main(String[] args) {
 
-        BigInteger p =pseudoFerma(128,128,BigInteger.valueOf(2).pow(10));
+        BigInteger p = pseudoFerma(128,128,BigInteger.valueOf(2).pow(10));
 
     }
 }
