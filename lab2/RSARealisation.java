@@ -13,7 +13,6 @@ public class RSARealisation {
         A.setN(A.getP().multiply(A.getQ()));
         A.setE(BigInteger.valueOf(65537));
         A.setD(A.getE().modInverse(A.phiN()));
-        
     }
 
     public static BigInteger encryption(Abonent A){
