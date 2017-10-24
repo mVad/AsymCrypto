@@ -12,11 +12,18 @@ public class RSA {
         return a < 0 ? -a : a;
     }
 
-    static boolean isPseudoFerma(int p, int k) {
+    private static long rnd(long min, long max)
+    {
+        max -= min;
+        final double random = Math.random();
+        return Math.round((random * max) + min);
+    }
+
+    private static boolean isPseudoFerma(long p, long k) {
         int i = 0;
         if (p % 2 == 0) return false;
         while (i < k) {
-            int x = new Random().nextInt(p - 1) + 1;
+            long x = rnd(2,p-1);
             if (GCD(x, p) > 1) return false;
             if (GCD(x, p) != 1 || BigInteger.valueOf(x).modPow(BigInteger.valueOf(p - 1), BigInteger.valueOf(p)).intValue() != 1) {
                 return false;
@@ -26,7 +33,13 @@ public class RSA {
         return true;
     }
 
+    static long pseudoFerma(long min, long max, long k){
+    long p = rnd(min,max);
+        while (!isPseudoFerma(p,k)) p=rnd(min,max);
+        return p;
+    }
+
     public static void main(String[] args) {
-        System.out.println(isPseudoFerma(7,1));
+       // System.out.println(pseudoFerma());
     }
 }
