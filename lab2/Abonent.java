@@ -1,6 +1,7 @@
 package lab2;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * Created by Tempuser on 24.10.2017.
@@ -11,6 +12,7 @@ public class Abonent extends RSA {
     private BigInteger d;
     public BigInteger n;
     public BigInteger e;
+    public BigInteger message;
 
     public Abonent(){};
 
@@ -68,6 +70,15 @@ public class Abonent extends RSA {
 
     public BigInteger phiN(){
         return this.getP().subtract(BigInteger.ONE).multiply(this.getQ().subtract(BigInteger.ONE));
+    }
+    public void setMessage(BigInteger message){
+        this.message = message;
+    }
+    public BigInteger getMessage(){
+        return this.message;
+    }
+    public void GenerateMessage(){
+        this.setMessage(BigInteger.probablePrime(700, new Random()));
     }
 
 }

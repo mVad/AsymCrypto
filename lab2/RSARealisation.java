@@ -14,8 +14,29 @@ public class RSARealisation {
         A.setE(BigInteger.valueOf(65537));
         A.setD(A.getE().modInverse(A.phiN()));
     }
+
+    public static BigInteger encryption(Abonent A){
+        BigInteger ciphtext;
+        ciphtext = A.getMessage().modPow(A.getE(), A.getN());
+        return ciphtext;
+    }
+
+    public static BigInteger decryption(Abonent A, BigInteger ciphtext){
+        BigInteger plaintext;
+        plaintext = ciphtext.modPow(A.getD(), A.getN());
+        return  plaintext;
+    }
+
     public static void main(String[] args){
         Abonent A = new Abonent();
         GenerateKeyPair(A);
+        A.GenerateMessage();
+        System.out.println(A.getMessage());
+        BigInteger ciph = encryption(A);
+        System.out.println(ciph);
+        BigInteger plain = decryption(A, ciph);
+        System.out.println(plain);
+        System.out.println((A.getE().multiply(A.getD())).mod(A.phiN()));
+
     }
 }
