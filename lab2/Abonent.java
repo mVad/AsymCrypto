@@ -69,7 +69,7 @@ public class Abonent extends RSA {
     }
 
     public BigInteger phiN(){
-        return this.getP().subtract(BigInteger.ONE).multiply(this.getQ().subtract(BigInteger.ONE));
+        return (this.getP().subtract(BigInteger.ONE)).multiply(this.getQ().subtract(BigInteger.ONE));
     }
     public void setMessage(BigInteger message){
         this.message = message;
@@ -78,7 +78,7 @@ public class Abonent extends RSA {
         return this.message;
     }
     public void GenerateMessage(){
-        this.setMessage(BigInteger.probablePrime(700, new Random()));
+        this.setMessage(BigInteger.probablePrime(200, new Random()));
     }
 
 }

@@ -36,7 +36,6 @@ public class RSARealisation {
         System.out.println(ciph);
         BigInteger plain = decryption(A, ciph);
         System.out.println(plain);
-        System.out.println((A.getE().multiply(A.getD())).mod(A.phiN()));
 
     }
 }
