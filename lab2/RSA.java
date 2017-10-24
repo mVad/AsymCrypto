@@ -14,11 +14,11 @@ public class RSA {
 
     static boolean isPseudoFerma(int p, int k) {
         int i = 0;
-        if (p % 2 != 0) return false;
+        if (p % 2 == 0) return false;
         while (i < k) {
             int x = new Random().nextInt(p - 1) + 1;
             if (GCD(x, p) > 1) return false;
-            if (GCD(x, p) != 1 && BigInteger.valueOf(x).modPow(BigInteger.valueOf(p - 1), BigInteger.valueOf(p)).intValue() != 1) {
+            if (GCD(x, p) != 1 || BigInteger.valueOf(x).modPow(BigInteger.valueOf(p - 1), BigInteger.valueOf(p)).intValue() != 1) {
                 return false;
             }
             i++;
@@ -27,6 +27,6 @@ public class RSA {
     }
 
     public static void main(String[] args) {
-        System.out.println(isPseudoFerma(10,2));
+        System.out.println(isPseudoFerma(7,1));
     }
 }
