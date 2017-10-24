@@ -3,7 +3,7 @@ package lab2;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class RSA {
+abstract class RSA {
 
 
     private static boolean isPseudoFerma(BigInteger p, BigInteger k) {
@@ -39,7 +39,6 @@ public class RSA {
     public static void main(String[] args) {
 
         BigInteger p =pseudoFerma(128,128,BigInteger.valueOf(2).pow(10));
-         System.out.println(p);
-        System.out.println(p.bitLength());
+
     }
 }
