@@ -8,13 +8,7 @@ import java.util.Random;
  */
 public class RSARealisation {
 
-    public static void GenerateKeyPair(Abonent A){
-        A.setP(BigInteger.probablePrime(256, new Random()));
-        A.setQ(BigInteger.probablePrime(256, new Random()));
-        A.setN(A.getP().multiply(A.getQ()));
-        A.setE(BigInteger.valueOf(65537));
-        A.setD(A.getE().modInverse(A.phiN()));
-    }
+
 
     public static BigInteger encryption(Abonent A){
         BigInteger ciphtext;
@@ -29,32 +23,40 @@ public class RSARealisation {
     }
 
     public static BigInteger Sign(Abonent A){
-        BigInteger signedMessage;
-        signedMessage = A.getMessage().modPow(A.getD(), A.getN());
-        return signedMessage;
+        return A.getMessage().modPow(A.getD(), A.getN());
     }
 
     public static BigInteger Verify(Abonent A, BigInteger signedMessage){
-        BigInteger verifyText;
-        verifyText = signedMessage.modPow(A.getE(), A.getN());
-        return verifyText;
+        return signedMessage.modPow(A.getE(), A.getN());
     }
 
+    public boolean protocol(Abonent A, Abonent B){
+        A.sendData(B);
+        //B.GenerateKeyPair();
+        B.getData(A);
+
+        return B.check(A);
+    }
     public static void main(String[] args){
         Abonent A = new Abonent();
-        GenerateKeyPair(A);
+        A.GenerateKeyPair();
         A.GenerateMessage();
         System.out.println(A.getMessage());
         BigInteger ciph = encryption(A);
         System.out.println(ciph);
         BigInteger plain = decryption(A, ciph);
-        System.out.println(plain);
+        System.out.println("plain="+plain);
         BigInteger sign = Sign(A);
         System.out.println(Verify(A, sign));
-        
 
-        //System.out.println(A.getD().multiply(A.getE()).mod(A.phiN()));
-        //System.out.println(A.getE());
+
+
+//        RSARealisation rsa = new RSARealisation();
+//        Abonent A = new Abonent();
+//        Abonent B = new Abonent();
+//        A.GenerateKeyPair();
+//        B.GenerateKeyPair();
+//        System.out.println(rsa.protocol(A,B));
 
     }
 }

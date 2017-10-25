@@ -10,11 +10,11 @@ abstract class RSA {
         BigInteger i = BigInteger.ZERO;
         if (p.mod(BigInteger.valueOf(2)).compareTo(BigInteger.ZERO) == 0) return false;
         while (i.compareTo(k) != 0) {
-         //   System.out.println("i=" + i.intValue());
+            System.out.println("i=" + i.intValue()+ "< k="+k.intValue());
             BigInteger x = new BigInteger(p.bitLength()-1, new Random());
             BigInteger result = x.gcd(p);
             if (result.compareTo(BigInteger.ONE) == 1) return false;
-            if (result.compareTo(BigInteger.ONE) == 0 && x.modPow(p.divide(BigInteger.ONE), p).compareTo(BigInteger.ONE) == 0) {
+            if (result.compareTo(BigInteger.ONE) != 0 || x.modPow(p.subtract(BigInteger.ONE), p).compareTo(BigInteger.ONE) != 0) {
                 return false;
             }
             i = i.add(BigInteger.ONE);
@@ -37,8 +37,8 @@ abstract class RSA {
     }
 
     public static void main(String[] args) {
-
-        BigInteger p = pseudoFerma(128,128,BigInteger.valueOf(2).pow(256));
-
+        System.out.println(isPseudoFerma(BigInteger.valueOf(79),BigInteger.valueOf(100)));
+     //   BigInteger p = pseudoFerma(128,128,BigInteger.valueOf(2).pow(30));
+     //   System.out.println("p="+p);
     }
 }
