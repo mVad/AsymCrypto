@@ -19,7 +19,7 @@ public class Abonent extends RSA {
 
     public void GenerateKeyPair(){
 
-     //  this.setP(BigInteger.probablePrime(256, new Random()));
+       // this.setP(BigInteger.probablePrime(256, new Random()));
        // this.setQ(BigInteger.probablePrime(256, new Random()));
         this.setP(pseudoFerma(128,128,BigInteger.valueOf(2).pow(10)));
         this.setQ(pseudoFerma(128,128,BigInteger.valueOf(2).pow(10)));
@@ -28,27 +28,27 @@ public class Abonent extends RSA {
         this.setD(this.getE().modInverse(this.phiN()));
     }
 
-    BigInteger getP() {
+    private BigInteger getP() {
         return p;
     }
 
-    void setP(BigInteger p) {
+    private void setP(BigInteger p) {
         this.p = p;
     }
 
-    BigInteger getQ() {
+    private BigInteger getQ() {
         return q;
     }
 
-    void setQ(BigInteger q) {
+    private void setQ(BigInteger q) {
         this.q = q;
     }
 
-    BigInteger getD() {
+    protected BigInteger getD() {
         return d;
     }
 
-    void setD(BigInteger d) {
+    private void setD(BigInteger d) {
         this.d = d;
     }
 
@@ -56,32 +56,33 @@ public class Abonent extends RSA {
         return n;
     }
 
-    void setN(BigInteger n) {
+    public void setN(BigInteger n) {
         this.n = n;
     }
 
-    BigInteger getE() {
+    public BigInteger getE() {
         return e;
     }
 
-    void setE(BigInteger e) {
+    public void setE(BigInteger e) {
         this.e = e;
     }
 
     public BigInteger phiN(){
         return (this.getP().subtract(BigInteger.ONE)).multiply(this.getQ().subtract(BigInteger.ONE));
     }
+
     public void setMessage(BigInteger message){
         this.message = message;
     }
+
     public BigInteger getMessage(){
         return this.message;
     }
+
     public void GenerateMessage(){
         this.setMessage(BigInteger.probablePrime(200, new Random()));
     }
-
-
 
     private void setK(BigInteger k) {
         this.k = k;
@@ -100,7 +101,7 @@ public class Abonent extends RSA {
 
     void sendData(Abonent B){
         while (B.getN().compareTo(this.getN()) == -1) this.GenerateKeyPair();
-        this.setK(BigInteger.valueOf(10));
+        this.setK(BigInteger.probablePrime(200, new Random()));
         BigInteger k1 = this.getK().modPow(B.getE(),B.getN());
         B.setK(k1);
         BigInteger s = this.getK().modPow(this.getD(),this.getN());

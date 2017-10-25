@@ -10,7 +10,7 @@ abstract class RSA {
         BigInteger i = BigInteger.ZERO;
         if (p.mod(BigInteger.valueOf(2)).compareTo(BigInteger.ZERO) == 0) return false;
         while (i.compareTo(k) != 0) {
-            System.out.println("i=" + i.intValue()+ "< k="+k.intValue());
+            //System.out.println("i=" + i.intValue()+ "< k="+k.intValue());
             BigInteger x = new BigInteger(p.bitLength()-1, new Random());
             BigInteger result = x.gcd(p);
             if (result.compareTo(BigInteger.ONE) == 1) return false;
